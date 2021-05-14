@@ -1,0 +1,119 @@
+<div class="content">
+
+<div class="form-group">
+      <input type="text" placeholder="Введите имя"
+      [(ngModel)]="fn"
+      #firstName="ngModel" required
+      >
+
+      <div [hidden]="firstName.valid || firstName.untouched" class="alert alert-danger">
+            Не указано имя
+      </div>
+</div>
+
+<div class="form-group">
+  <input type="text" placeholder="Введите фамилию"
+  [(ngModel)]="ln"
+  #lastName="ngModel" required
+  >
+
+  <div [hidden]="lastName.valid || lastName.untouched" class="alert alert-danger">
+        Не указана фамилия
+  </div>
+</div>
+
+<div class="form-group-date">
+  <mat-form-field>
+    <label for="birthday">Дата рождения:</label>
+    <input matInput [matDatepicker]="datepicker"
+    [(ngModel)]="brthd" (change)="vers()"
+    #birthday="ngModel" required
+    >
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker >
+  </mat-form-field>
+
+  <div [hidden]="birthday.valid || birthday.untouched" class="alert alert-danger">
+        Не указана дата рождения
+  </div>
+</div>
+
+<div class="form-group-select">
+    <mat-form-field appearance="fill">
+        <mat-label>Технология</mat-label>
+          <select matNativeControl required [(ngModel)]="frmwrk" (change)="vers()"
+          #framework="ngModel" required
+          >
+            <option value="angular">Angular</option>
+            <option value="react">React</option>
+            <option value="vue">Vue</option>
+          </select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Версия</mat-label>
+      <select matNativeControl required [(ngModel)]="vrsn" [disabled]="disableSelect.value"
+      *ngIf="frmwrk==''" [disabled]="disableSelect.value"
+      >
+
+      </select>
+
+      <select matNativeControl required [(ngModel)]="vrsn" [disabled]="disableSelect.value"
+      *ngIf="frmwrk=='angular'"
+      #version="ngModel" required
+      >
+        <option *ngFor="let angular of angulars">
+    {{angular.value}}
+  </option>
+      </select>
+
+      <select matNativeControl required [(ngModel)]="vrsn" [disabled]="disableSelect.value"
+      *ngIf="frmwrk=='react'"
+      #version="ngModel" required
+      >
+        <option *ngFor="let react of reacts">
+    {{react.value}}
+  </option>
+      </select>
+
+      <select matNativeControl required [(ngModel)]="vrsn" [disabled]="disableSelect.value"
+      *ngIf="frmwrk=='vue'"
+      #version="ngModel" required
+      >
+        <option *ngFor="let vue of vues">
+    {{vue.value}}
+  </option>
+      </select>
+    </mat-form-field>
+
+    <div [hidden]="framework.valid || framework.untouched" class="alert alert-danger">
+        Не указана технология
+    </div>
+</div>
+
+<div class="form-group">
+  <input type="text" placeholder="Введите email" [(ngModel)]="mail"
+  #email="ngModel" required
+  required pattern="[a-zA-Z_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}"
+  >
+
+  <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+        Некоректный email
+  </div>
+</div>
+
+<div class="form-group">
+  <input type="text" placeholder="Введите хобби" [(ngModel)]="hb">
+  <label>Продолжительность</label>
+  <input type="number" placeholder="Введите продолжительность" [(ngModel)]="dur">
+  <br><br>
+  <button (click)="addTodoHobbi()">Добавить хобби</button>
+
+</div>
+
+
+<div class="form-group-but">
+    <button (click)="addTodo()" [disabled]="firstName.invalid || lastName.invalid || birthday.invalid || framework.invalid || email.invalid ">Добавить</button>
+</div>
+</div>

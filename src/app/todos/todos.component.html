@@ -1,0 +1,32 @@
+<div *ngIf="!loading">
+
+<ul *ngIf="todosService.todos.length; else noTodos">
+  <li *ngFor="let todo of todosService.todos; let i = index">
+    <span>
+
+    <strong>{{i+1}}</strong>
+    {{todo.firstName}}
+    {{todo.lastName}}
+    {{todo.birthday | date:"shortDate"}}
+    {{todo.framework}}
+    {{todo.version}}
+    {{todo.email}}
+    <div *ngFor="let some of todo.hobbi">
+      {{some.nameHobbi}}
+      {{some.duration}}
+    </div>
+    </span>
+
+    <small></small>
+
+    <button class="rm" (click)="removeTodo(todo.id)">&times;</button>
+  </li>
+</ul>
+
+<ng-template #noTodos>
+  <p>Пользователей пока нет. Добавьте пользователя.</p>
+  </ng-template>
+  <hr>
+</div>
+
+<p *ngIf="loading">Загрузка...</p>
